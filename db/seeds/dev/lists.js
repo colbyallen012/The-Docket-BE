@@ -1,15 +1,15 @@
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('groceries').del()
-  .then(() => knex('groceryList').del())
+  return knex('grocery_items').del()
+  .then(() => knex('groceryLists').del())
     .then(function () {
       // Inserts seed entries
       return Promise.all([
-        knex('groceryList').insert({
-          title: 'grcery list 1',
+        knex('groceryLists').insert({
+          list_title: 'grocery list 1',
         },'id')
         .then(groceryList => {
-          return knex('groceries').insert([
+          return knex('grocery_items').insert([
             { item: 'eggs', item_id: groceryList[0] },
             { item: 'bacon', item_id: groceryList[0] },
             { item: 'cheese', item_id: groceryList[0] },
