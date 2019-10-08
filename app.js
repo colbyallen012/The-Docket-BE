@@ -33,7 +33,7 @@ app.post('/api/v1/groceryLists', (request, response) => {
     .then(existingList => {
       if(!existingList.length) {
         database('groceryLists').insert(groceryList, 'id')
-          .then(groceryList => response.status(201).json({list_name: groceryList[0]}))
+          .then(groceryList => response.status(201).json({id: groceryList[0]}))
           .catch(error => response.status(500).json({error}))
       } else {
         response.status(409).json(`${groceryList.name} already exists.`)
