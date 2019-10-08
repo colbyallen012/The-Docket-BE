@@ -27,5 +27,13 @@ describe('API', () => {
       expect(response.status).toBe(201)
       expect(response.body).toEqual(expectedResponse)
     })
+
+    it('SAD PATH: should return 409 status and grocery list exists message', async () => {
+      const newList = {list_title: 'grocery list 1'}
+      const response = await request(app).post('/api/v1/groceryLists').send(newList)
+      const errorMessage = 'grocery list 1 already exists.';
+      expect(response.status).toBe(409);
+      expect(response.body).toEqual(errorMessage);
+    })
   })
 })
