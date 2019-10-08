@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --forceExit",
+    "devTest": "jest --watchAll",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +15,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.19.5",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "supertest": "^4.0.2"
   }
 }
