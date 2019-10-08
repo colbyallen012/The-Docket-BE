@@ -42,5 +42,10 @@ describe('API', () => {
       const response = await request(app).delete(`/api/v1/groceryLists/${expectedId}`)
       expect(response.status).toBe(204)
     })
+
+    it('SAD PATH: should return a 404 if a request id is bad', async () => {
+      const response = await request(app).delete('/api/v1/groceryLists/-2')
+      expect(response.status).toBe(404)
+    })
   })
 })
