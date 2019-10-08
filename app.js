@@ -41,4 +41,22 @@ app.post('/api/v1/groceryLists', (request, response) => {
     })
 });
 
+app.delete('/api/v1/groceryLists/:id', (request, response) => {
+  const {id} = request.params;
+  database('groceryLists').where('id', id).select()
+    .then(groceryList => {
+      if(groceryList.length) {
+        database('grocery_items').where('item_id', id).del()
+          .then(() => {
+            database('groceryLists').where('id', id).del()
+              .then(() => response.status(204).json('Grocery list and items deleted'))
+              .catch(error => response.status(500).json({error}))
+
+          })
+      } else {
+        response.status(404).json('Grocery list does not exist')
+      }
+    })
+})
+
 module.exports = app;
