@@ -20,6 +20,13 @@ app.get('/api/v1/groceryLists', (request, response) => {
     .catch(error => response.status(500).json({error}))
 });
 
+app.get('/api/v1/grocery_items', (request, response) => {
+  database('grocery_items').select()
+    .then(grocery_items => response.status(200).json(grocery_items))
+    .catch(error => response.status(500).json({error}))
+});
+
+
 app.post('/api/v1/groceryLists', (request, response) => {
   const groceryList = request.body;
   for(let requiredParameter of ['list_title']) {
