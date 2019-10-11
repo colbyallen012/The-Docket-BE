@@ -77,4 +77,12 @@ describe('API', () => {
       expect(response.status).toBe(404)
     })
   })
+
+  describe('DELETE /api/v1/grocery_items/:id', () => {
+    it('HAPPY PATH: should return a status of 204 when an item is deleted', async () => {
+      const expectedId = await database('grocery_items').first('id').then(object => object.id);
+      const response = await request(app).delete(`/api/v1/grocery_items/${expectedId}`)
+      expect(response.status).toBe(204)
+    })
+  })
 })
