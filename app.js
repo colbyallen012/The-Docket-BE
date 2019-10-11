@@ -71,7 +71,7 @@ app.post('/api/v1/grocery_items', (request, response) => {
               .then(item => response.status(201).json({id: item[0]}))
               .catch(error => response.status(500).json({error}))
           } else {
-            response.status(422).json(`${item.item} for this grocery list already exists`)
+            response.status(422).json(`${grocery_item.item} for this grocery list already exists`)
           }
         })
     })
