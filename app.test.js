@@ -47,7 +47,18 @@ describe('API', () => {
       expect(response.body).toEqual(errorMessage);
     })
   })
-  
+
+  describe('POST /api/v1/grocery_items', () => {
+    it('HAPPY PATH: should post a new item to the grocery list', async () => {
+      const newItem = {item_id: 6,list_title: 'grocery list 1', item: 'cake'}
+      const response = await request(app).post('/api/v1/grocery_items').send(newItem)
+      const items = await database('grocery_items').where({ id: response.body.id });
+      const newItems= items[0]
+      expect(response.status).toBe(201)
+      expect(newItems.item).toEqual(newItem.item)
+    })
+  })
+
   describe('DELETE /api/v1/groceryLists/:id', () => {
     it('HAPPY PATH: should return a status of 204 when a grocery list is deleted', async () => {
       const expectedId = await database('groceryLists').first('id').then(object => object.id);
