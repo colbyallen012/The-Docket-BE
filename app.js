@@ -95,4 +95,18 @@ app.delete('/api/v1/groceryLists/:id', (request, response) => {
     })
 })
 
+app.delete('/api/v1/grocery_items/:id', (request, response) => {
+  const {id} = request.params;
+  database('grocery_items').where('id', id).select()
+    .then(grocery_item => {
+      if(grocery_item.length) {
+        database('grocery_items').where('id', id).del()
+          .then(() => response.status(204).json('Item removed'))
+          .catch(error => response.status(500).json({error}))
+      } else {
+        response.status(404).json('Item does not exist')
+      }
+    })
+})
+
 module.exports = app;
