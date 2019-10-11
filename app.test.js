@@ -57,6 +57,12 @@ describe('API', () => {
       expect(response.status).toBe(201)
       expect(newItems.item).toEqual(newItem.item)
     })
+
+    it('SAD PATH: Should return a 422 status if the item already exists', async () => {
+      const newItem = {item_id: 6,list_title: 'grocery list 1', item: 'eggs'}
+      const response = await request(app).post(`/api/v1/grocery_items`).send(newItem);
+      expect(response.status).toBe(422)
+    })
   })
 
   describe('DELETE /api/v1/groceryLists/:id', () => {
